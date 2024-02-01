@@ -163,17 +163,22 @@ si devuelve una lista de archivos o carpetas, usa UEFI
 ~$ cfdisk /dev/sda
 ```
 
-*elegimos "gpt"*
+- *elegimos "gpt"*
 
 Abrirá el entorno. En la parte superior se irá viendo la información de nustras particiones y en la parte inferior las acciones.
 Con las flechas vamos seleccionando, arriba y abajo para las particiones, derecha e izquierda para las acciones.
 Inicialmente aparece todo el dico como "free".
 
->Por prolijidad, generalmente el orden de las particiones es
+>Por prolijidad, generalmente el orden de las particiones es:
+>
 >/dev/sda1 --> /boot   <128M>
+>
 >/dev/sda2 --> /        <50G>
+>
 >/dev/sda3 --> /home   <936G>
+>
 >/dev/sda4 --> /tmp      <5G>
+>
 >/dev/sda5 --> [swap]   <~9G>
 
 Es un cálculo para un disco ideal. Depende también del estado de disco. Es frecuente que el tamaño utilizable sea menor al que dice que tiene y habrá que adaptarse a esto.
@@ -188,84 +193,98 @@ Partition size: 128M
  
 Notar las unidades (M para megabyte y G para gigabyte). Para mí 128M es suficiente si se va a instalar un solo SO. Se puede elegir cualquier valor por encima de éste. En general conviene, cuando se pueda, elegir múltiplos de 1024b. Muchos recomiendan como estándar 512M.
 
-- Con la flecha horizontal nos posicionammos en "Type"
-- en el menú que se despliega elegir el primero: "EFI System"
+- Con la flecha horizontal nos posicionammos en **Type**
+- en el menú que se despliega elegir el primero: **EFI System**
 
->(en caso de no utilizar UEFI, se peude optar por "BIOS boot" u otro que especifique el fabricante del hardware)
+>(en caso de no utilizar UEFI, se peude optar por **BIOS boot** u otro que especifique el fabricante del hardware)
 
 En la parte superior ya aparece la información de nuestra primera partición. Lo más relevante es
 
-Device: /dev/sda1
-Size: 128M
-Type: EFI System
+*Device: /dev/sda1*
 
-- Con la felcha abajo nos pocicionamos en el siguiente renglón, Free Space --> Enter
+*Size: 128M*
 
-Acción: New
+*Type: EFI System*
+
+- Con la felcha abajo nos pocicionamos en el siguiente renglón, *Free Space --> Enter*
+
+**Acción: New**
 
 ### Para la raíz del sistema
 
-Partition size: 50G (aconsejo más de 20G, siempre)
+*Partition size: 50G* (aconsejo más de 20G, siempre)
 
-Por defecto aparece
+Aparece:
 
-Device: /dev/sda2
-Size: 50G
-Type: Linux filesystem
+*Device: /dev/sda2*
+
+*Size: 50G*
+
+*Type: Linux filesystem*
+
 
 >En caso de que no aparezca el Type o aparezca como "unknow", ir a Type y en el menú seleccionarlo.
 
-- Felcha abajo, nos pocicionamos en el siguiente renglón, Free Space --> Enter
+- Felcha abajo, nos pocicionamos en el siguiente renglón, *Free Space --> Enter*
 
-Acción: New
+**Acción: New**
 
 ### Para home
 
-Partition size: 936G
+*Partition size: 936G*
 
 Aparece:
 
-Device: /dev/sda3
-Size: 936G
-Type: Linux filesystem
+*Device: /dev/sda3*
 
-- Felcha abajo, nos pocicionamos en el siguiente renglón, Free Space --> Enter
+*Size: 936G*
 
-Acción: New
+*Type: Linux filesystem*
+
+
+- Felcha abajo, nos pocicionamos en el siguiente renglón, *Free Space --> Enter*
+
+**Acción: New**
 
 ### Para tmp
 
-Partition size: 5G
+*Partition size: 5G*
 
 Aparece:
 
-Device: /dev/sda4
-Size: 5G
-Type: Linux filesystem
+*Device: /dev/sda4*
 
-- Felcha abajo, nos pocicionamos en el siguiente renglón, Free Space --> Enter
+*Size: 5G*
 
-Acción: New
+*Type: Linux filesystem*
+
+
+- Felcha abajo, nos pocicionamos en el siguiente renglón, *Free Space --> Enter*
+
+**Acción: New**
 
 ### Para swap
 
-Partition size: 9G (o lo que reste de espacio)
+*Partition size: 9G* (o lo que reste de espacio)
 
-seleccionar Type --> menú --> Linux swap --> Enter
+- Seleccionar *Type --> menú --> Linux swap --> Enter*
 
 Aparece:
 
-Device: /dev/sda5
-Size: 9G
-Type: Linux swap
+*Device: /dev/sda5*
+
+*Size: 9G*
+
+*Type: Linux swap*
 
 
-- Flechas horizontales --> Write --> Enter
+- Flechas horizontales *--> Write --> Enter*
 
-Nos pide que confirmemos escribiendo "yes"
+Nos pide que confirmemos escribiendo **"yes"**
 
 - Salimos
-Flechas horizontales --> Quit --> Enter
+
+Flechas horizontales *--> Quit --> Enter*
 
 En este punto, están hechas las particiones pero no están formateadas. Esto se puede hacer manualmente desde la línea de comandos o ya en el proceso de instalación.
 Yo recomiendo esta última ya que con la primera me han surgido errores que abortan la instalación.
@@ -328,29 +347,35 @@ Esto abrirá el menú de instalación, el cual es bastante intuitivo. Me centrar
 >
 >- En repositorios adicionales selecciona multilib. Esto es para aplicaciones que necesiten librerías de 32 bits.
 
-###Ahora, la configuración del disco.
+### Ahora, la configuración del disco.
 
 - En el apartado Disk configuration.
 
 -> "Partición manual"
+
 -> el disco donde se va a instalar -> Enter
-aparece el disco con las particiones. De nuevo, no hacer nada con swap por el momento
+
+>aparece el disco con las particiones. De nuevo, no hacer nada con swap por el momento
+
 -> Enter en cada partición para modificar
+
 -> marcar para ser formateada -> pasa de "existing" a "modify"
+
 -> tipo de partición: ext4 o Fat32 según corresponda.
--> punto de montaje: boot-> /boot ... raíz-> / ... home-> /home ... tmp-> /tmp
+
+-> punto de montaje: *boot* ->/boot ... *raíz* ->/ ... *home* ->/home ... *tmp* ->/tmp
 
 - Confirmar y salir.
 
-- Desplazarse hasta "Instalar" -> muestra un json con las configuraciones -> Enter --> Comienza la instalación.
+- Desplazarse hasta **Instalar** -> muestra un json con las configuraciones -> *Enter* --> Comienza la instalación.
 
 ---
 
-##Post instalación. 
+## Post instalación. 
 
-Montaremos y activaremos la swap. Instalaremos el grub. Este último se podría hacer después de reiniciar usando las ventanas de inicio por primera vez. Particularmente me gusta esta forma.
+>Montaremos y activaremos la swap. Instalaremos el grub. Este último se podría hacer después de reiniciar usando las ventanas de inicio por primera vez. Particularmente me gusta esta forma.
 
->Al final de la instalación va a preguntar ssi queremos chroot -> si
+Al final de la instalación va a preguntar si queremos *chroot -> si*
 
 - Verificamos que no hay entrada para el SO el e menú de inicio:
 ```
@@ -358,12 +383,13 @@ Montaremos y activaremos la swap. Instalaremos el grub. Este último se podría 
 ```
 veremos que no hay referencia a Arch.
 
+- Instalamos el grub
 ```
 ~# grub-install --target=x86_64-efi --efi-directory=/boot
 ```
 ahora, si hacemos otro efibootmgr veremos una línea agregada que muestra el acceso al SO
 
-Swap: esto es copia de lo que explicamos anteriormente. Ahora lo aplicaremos.
+- Swap: esto es copia de lo que explicamos anteriormente. Ahora lo aplicaremos.
 
 - Formatear
 ```
@@ -375,7 +401,7 @@ Swap: esto es copia de lo que explicamos anteriormente. Ahora lo aplicaremos.
 ~# swapon /dev/sda5 
 ```
 
-### Listo.
+### LISTO.
 
 ```
 ~# exit
