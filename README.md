@@ -305,7 +305,7 @@ Obviaré las opciones de agregar etiquetas, etc.
 
 La forma recomendada por mí es hacer el formateo dentro del proceso de instalación.
 
-*El formateo y activación de la **swapp** se realizará porterior a la instalación del SO*
+*El formateo y activación de la **swap** se realizará porterior a la instalación del SO*
 
 ---
 
@@ -332,7 +332,8 @@ Esto abrirá el menú de instalación, el cual es bastante intuitivo. Me centrar
 >
 >- En swap depende. Si se deja en true, se habilita la zram que usa una parte de la ram para crear un espacio swap comprimido en vez de usar el disco. Si se tiene una ram de tamaño suficiente esto podría se atractivo, más aún si se tiene un SSD y no se configura la ram para menguar la cantidad de acceso a éste. En el caso de tener un tamaño de ram no muy holgado, recomiendo elegir "false" y usar la swap en disco (ya hemos reservado unapartición para esto). En caso de tener un SSD habrá que configurar ciertos parámetros, como por ejemplo "swappiness" para reducir la frecuencia de lectura y escritura en el disco. En caso de tener HDD, si bien los tiempos de acceso son mayores, el desgaste es mucho menor.
 >
->- Perfiles: si no se tiene amplia experiencia en window manager, elegir (además) un ecritorio liviano, como Mate. Ventana de bienvenida: a gusto (es la que en el arranque muestra el usuario y pide la contraseña además de permitir elegir el escritorio o wm a utilizar).
+>- Perfiles: si no se tiene amplia experiencia en window manager, elegir (además) un escritorio liviano como *Mate*. 
+>>Ventana de bienvenida: a gusto (es la que en el arranque muestra el usuario y pide la contraseña además de permitir elegir el escritorio o wm a utilizar).
 >
 >- Servidor de audio: dependerá de la edad del sistema. *Piewire* es el más actual.
 >
@@ -349,13 +350,13 @@ Esto abrirá el menú de instalación, el cual es bastante intuitivo. Me centrar
 
 -> el disco donde se va a instalar -> Enter
 
->aparece el disco con las particiones. De nuevo, no hacer nada con swap por el momento
+>aparece el disco con las particiones. De nuevo, no hacer nada con la partición swap por el momento.
 
--> Enter en cada partición para modificar
+-> Enter en cada partición para modificar.
 
--> marcar para ser formateada -> pasa de "existing" a "modify"
+-> Marcar para ser formateada -> la primera columna pasa de *"existing"* a *"modify"*
 
--> tipo de partición: ext4 o Fat32 según corresponda.
+-> tipo de partición: Fat32 para boot y ext4 para el resto.
 
 -> puntos de montaje: 
 
@@ -383,9 +384,9 @@ Esto abrirá el menú de instalación, el cual es bastante intuitivo. Me centrar
 >Formatearemos y activaremos la partición swap. Instalaremos el grub. 
 >Este último se podría hacer después de reiniciar usando las ventanas de inicio por primera vez. Particularmente me gusta esta forma.
 
-Al final de la instalación va a preguntar si queremos *chroot -> si*
+Al final de la instalación va a preguntar si queremos *chroot -> **si**.*
 
-- Verificamos que no hay entrada para el SO el e menú de inicio:
+- Verificamos que no hay entrada para el SO en la pantalla de inicio:
 ```
 ~# efibootmgr
 ```
@@ -395,9 +396,10 @@ veremos que no hay referencia a Arch.
 ```
 ~# grub-install --target=x86_64-efi --efi-directory=/boot
 ```
-ahora, si hacemos otro efibootmgr veremos una línea agregada que muestra el acceso al SO
+ahora, si hacemos otro *efibootmgr* veremos una línea agregada que muestra el acceso al SO
 
-- Swap: esto es copia de lo que explicamos anteriormente. Ahora lo aplicaremos.
+
+#### Swap:
 
 - Formatear
 ```
