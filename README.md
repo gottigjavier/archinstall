@@ -360,13 +360,13 @@ Esto abrirá el menú de instalación, el cual es bastante intuitivo. Me centrar
 
 -> puntos de montaje: 
 
-	*boot:* **/boot** 
+*boot:* **/boot** 
 
-	*raíz:* **/**
-	
-	*home:* **/home**
-	
-	*tmp:* **/tmp**
+*raíz:* **/**
+
+*home:* **/home**
+
+*tmp:* **/tmp**
 
 
 - Confirmar y salir.
