@@ -291,6 +291,8 @@ Yo recomiendo esta última ya que con la primera me han surgido errores que abor
 No obstante, mostaré cómo hacerlo. Si siguen el proceso de instalación, verán que estos comandos aparecen.
 Obviaré las opciones de agregar etiquetas, etc. 
 
+>Formateo manual:
+>
 > ```
 > ~$ mkfs.fat -F32 /dev/sda1
 >
@@ -300,19 +302,10 @@ Obviaré las opciones de agregar etiquetas, etc.
 >
 > ~$ mkfs.ext4 /dev/sda4
 >```
->
->Aconsejo dejar la partición swap para después de la instalación
->
->formatear
->```
-> ~$ mkswap /dev/sda5
->```
->activar
->```
-> ~$ swapon /dev/sda5
->```
 
-La forma recomendada por mí es hacerlo dentro del proceso de instalación.
+La forma recomendada por mí es hacer el formateo dentro del proceso de instalación.
+
+*El formateo y activación de la **swapp** se realizará porterior a la instalación del SO*
 
 ---
 
@@ -329,23 +322,24 @@ Esto abrirá el menú de instalación, el cual es bastante intuitivo. Me centrar
 >
 >- Para el caso de tener que seleccionar (única o múltiple) se lo hace con la barra espaciadora
 >
->- En mirrors, además de seleccionar servidores cercanoa mi ubicación, selecciona el de USA, es veloz. 
+>- En mirrors, además de seleccionar servidores cercanos mi ubicación seleccionar el de USA, es veloz. 
 >
->- En locales selesccionar sin .UTF-8, ej: es_AR en vez de es_AR.UTF-8. Algunos lo aconsejan pero me ha saltado error en el proceso de instalación. Además, debajo aparece la posibilidad de elegir la codificación.
+>- En locales selesccionar sin .UTF-8, ej: "es_AR" en vez de "es_AR.UTF-8". Algunos lo aconsejan pero me ha saltado error en el proceso de instalación. Además, debajo aparece la posibilidad de elegir la codificación.
 >
->- Gestor de arranque: el confiable grub
+>- Gestor de arranque: *el confiable grub*
 >
->- En servidores gráficos, a menos que se sepa bien lo que se va a hacer, seleccionar all-opensource
+>- En servidores gráficos, a menos que se sepa bien lo que se va a hacer, seleccionar *all-opensource*
 >
 >- En swap depende. Si se deja en true, se habilita la zram que usa una parte de la ram para crear un espacio swap comprimido en vez de usar el disco. Si se tiene una ram de tamaño suficiente esto podría se atractivo, más aún si se tiene un SSD y no se configura la ram para menguar la cantidad de acceso a éste. En el caso de tener un tamaño de ram no muy holgado, recomiendo elegir "false" y usar la swap en disco (ya hemos reservado unapartición para esto). En caso de tener un SSD habrá que configurar ciertos parámetros, como por ejemplo "swappiness" para reducir la frecuencia de lectura y escritura en el disco. En caso de tener HDD, si bien los tiempos de acceso son mayores, el desgaste es mucho menor.
 >
 >- Perfiles: si no se tiene amplia experiencia en window manager, elegir (además) un ecritorio liviano, como Mate. Ventana de bienvenida: a gusto (es la que en el arranque muestra el usuario y pide la contraseña además de permitir elegir el escritorio o wm a utilizar).
 >
->- Servidor de audio: dependerá de la edad del sistema. Piewire es el más actual.
+>- Servidor de audio: dependerá de la edad del sistema. *Piewire* es el más actual.
 >
->- Configuración de la red: seleccionar NetworkManager 
+>- Configuración de la red: seleccionar *NetworkManager*. 
 >
->- En repositorios adicionales selecciona multilib. Esto es para aplicaciones que necesiten librerías de 32 bits.
+>- En repositorios adicionales selecciona *multilib*. Esto es para aplicaciones que necesiten librerías de 32 bits.
+
 
 ### Ahora, la configuración del disco.
 
@@ -363,17 +357,31 @@ Esto abrirá el menú de instalación, el cual es bastante intuitivo. Me centrar
 
 -> tipo de partición: ext4 o Fat32 según corresponda.
 
--> punto de montaje: *boot* ->/boot ... *raíz* ->/ ... *home* ->/home ... *tmp* ->/tmp
+-> puntos de montaje: 
+
+	*boot:* **/boot** 
+
+	*raíz:* **/**
+	
+	*home:* **/home**
+	
+	*tmp:* **/tmp**
+
 
 - Confirmar y salir.
 
-- Desplazarse hasta **Instalar** -> muestra un json con las configuraciones -> *Enter* --> Comienza la instalación.
+- Desplazarse hasta **Instalar** 
+
+-> muestra un json con las configuraciones 
+
+-> *Enter* --> Comienza la instalación.
 
 ---
 
 ## Post instalación. 
 
->Montaremos y activaremos la swap. Instalaremos el grub. Este último se podría hacer después de reiniciar usando las ventanas de inicio por primera vez. Particularmente me gusta esta forma.
+>Formatearemos y activaremos la partición swap. Instalaremos el grub. 
+>Este último se podría hacer después de reiniciar usando las ventanas de inicio por primera vez. Particularmente me gusta esta forma.
 
 Al final de la instalación va a preguntar si queremos *chroot -> si*
 
